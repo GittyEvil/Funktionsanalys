@@ -5,6 +5,39 @@
 //
 // Private
 //
+//gör den static så den inte kan råkas använda i annan fil
+static void parting(int *a, int low, int high) {
+    //delar upp array i delar för att sedan slå ihop och då är array sorterad
+
+    //finns det element att sortera
+    if (low < high) {
+        //pivot = utvalt värde
+        int chosenValue = a[high];
+        int i = low - 1;
+        //kommer varje element från low(0) till high alltså just nu vanlig for loop iterering
+        for (int j = low; j < high; j++) {
+            //är värdet mindre än utvalda värdet då flyttas den till vänster om väret.
+            if (a[j] <= chosenValue) {
+                i++;
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+        //rättar till det utvalda värdet som flyttades på(den blev osorterad)
+        int temp = a[i + 1];
+        a[i + 1] = a[high];
+        a[high] = temp;
+
+        int partingIndex = i + 1;
+        
+        //soterar nu om alla tal vänster å sen höger om det utvalda talet
+        //vänster del
+        parting(a, low, partingIndex - 1);
+        //höger del
+        parting(a, partingIndex + 1, high);
+    }
+}
 
 //
 // Public
@@ -34,9 +67,10 @@ void insertion_sort(int *a, int n)
     */
 
     for(int i = 1; i < n;i++) {
+        //value kan egentligen vara vilket element som helst
         int value = a[i];
         int j = i - 1;
-
+        //byter ut värdet brevid value
         while(j >=0 && a[j] < value) {
             a[j + 1] = a[j];
             j--;
@@ -48,10 +82,10 @@ void insertion_sort(int *a, int n)
 void quick_sort(int *a, int n)
 {
 	// TODO: quick sort
-    //använda sig utav qsort?
-    for(int i = 0; i < n;i++) {
-        qsort(*a,n,sizeof(int),a[i] - a[i + 1]);
-    }        
+    /*
+    splittar upp array i flera mindre arrayer och fortsätter göra så tills den är såppas liten så den automatiskt blir sorterad
+    */     
+    parting(a,0,n - 1);
 }
 
 bool linear_search(const int *a, int n, int v)
@@ -69,17 +103,21 @@ bool linear_search(const int *a, int n, int v)
 bool binary_search(const int *a, int n, int v)
 {
 
-    //Kommer ta in värde och kolla mitten först, om den ligger till höger(större än mitten) om mitten eller vänster(mindre än hälften)
+    /*
+    Kommer ta in värde och kolla mitten först, om den ligger till höger(större än mitten) om mitten eller vänster(mindre än hälften) 
+    är väl samma som linear, ska väl egentligen returnera position snarare än true/false om den hittas eller ej
+    */
     int mid, left = 0, right = n - 1;
 
-    while(low <= high) {
-        if(arr[mid] == v) {
-            return true;
-        } else if(a[mid] < v) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
-        }
+    while (left <= right) {
+        mid = left + (right - left) / 2;
+
+        return (a[mid] == v) 
+            ? true 
+            : (a[mid] < v) 
+                ? (left = mid + 1, false) 
+                : (right = mid - 1, false);
     }
+
 	return false; // TODO: binary search
 }
