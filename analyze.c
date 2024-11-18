@@ -5,19 +5,26 @@
 // Private
 //
 
-//
-// Public
-//
 
-void generateDataArray(int *arr, int n, case_t c) {
+//genererar heltal för array på olika sätt
+static void generateArray(int *arr, int n, case_t c) {
     if(c == best_t) {
-    
+        for(int i = 0; i < n;i++) {
+            
+        }
     } else if(c == worst_t) {
-    
+        for(int i = 0; i < n;i++) {
+            
+        }
     } else {
     
     }
 }
+
+//
+// Public
+//
+
 
 void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
 {
@@ -31,29 +38,37 @@ void benchmark(const algorithm_t a, const case_t c, result_t *buf, int n)
     parameter c är för vilken typ av tidstest vi vill ha alltså bästa, sämsta eller det genomsnittliga
     */
 
+    //behöver allokera upp plats för array och size
+    int size = NULL;
+    int* array = (int*) malloc(size *sizeof(int));
+
+    generateArray(array,size,c);
+    
     for(int i = 0; i < n;i++) {
-        generateDataArray(array,n,c);
-
-
         switch(a) {
-            case 1:
-
+            case bubble_sort_t:
+                //Bubblesort
+                bubble_sort(array,size);
                 break;
 
-            case 2:
-            
+            case insertion_sort_t:
+                //insertionSort
+                insertion_sort(array,size);
                 break;
 
-            case 3:
-            
+            case quick_sort_t:
+                //quick sort
+                quick_sort(array,size);
                 break;
 
-            case 4:
-            
+            case linear_search_t:
+                //linear
+                linear_search(array,size,value);
                 break;
 
-            case 5:
-            
+            case binary_search_t:
+                //binary
+                binary_search(array,size,value);
                 break;
 
             
