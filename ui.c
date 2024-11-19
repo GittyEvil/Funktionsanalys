@@ -46,9 +46,22 @@ static void ui_menu_options(const char *options[], int num_options)
 static void ui_menu()
 {
 	const char *options[] = {
-		"Menu",
-		"Exit\n",
 		"Bubble sort best case",
+        "Bubble sort worst case",
+        "Bubble sort avg case\n",
+        "Insertion sort best case",
+        "Insertion sort worst case",
+        "Insertion sort avg case\n",
+        "Quick sort best case",
+        "Quick sort worst case",
+        "Quick sort avg case\n",
+        "linear search best case",
+        "linear search worst case",
+        "linear search avg case\n",
+        "Binary search best case",
+        "Binary search worst case",
+        "Binary search avg case\n",
+		"Exit\n",
 		// TODO: complete menu
 	};
 
@@ -74,17 +87,46 @@ void ui_run()
 		}
 		switch (ui_get_choice()) {
 			// House keeping
+            /*
 			case 'a':
 				show_menu = true;
 				break;
 			case 'b':
 				running = false;
 				break;
+            */
 			// Bubble sort
-			case 'c':
+			case 'a':
 				benchmark(bubble_sort_t, best_t, result, RESULT_ROWS);
-				printf("todo> implemenet BE + present results in FE\n");
 				break;
+            case 'b':
+				benchmark(bubble_sort_t, worst_t, result, RESULT_ROWS);
+            case 'c':
+				benchmark(bubble_sort_t, average_t, result, RESULT_ROWS);
+            case 'd':
+				benchmark(insertion_sort_t, best_t, result, RESULT_ROWS);
+            case 'e':
+				benchmark(insertion_sort_t, worst_t, result, RESULT_ROWS);
+            case 'f':
+				benchmark(insertion_sort_t, average_t, result, RESULT_ROWS);
+            case 'g':
+				benchmark(quick_sort_t, best_t, result, RESULT_ROWS);
+            case 'h':
+				benchmark(quick_sort_t, worst_t, result, RESULT_ROWS);
+            case 'i':
+				benchmark(quick_sort_t, average_t, result, RESULT_ROWS);
+            case 'j':
+				benchmark(linear_search_t, best_t, result, RESULT_ROWS);
+            case 'k':
+				benchmark(linear_search_t, worst_t, result, RESULT_ROWS);
+            case 'l':
+				benchmark(linear_search_t, average_t, result, RESULT_ROWS);
+            case 'm':
+				benchmark(binary_search_t, best_t, result, RESULT_ROWS);
+            case 'n':
+				benchmark(binary_search_t, worst_t, result, RESULT_ROWS);
+            case 'o':
+				benchmark(binary_search_t, average_t, result, RESULT_ROWS);
 			// Invalid input
 			default:
 				show_menu = false;
